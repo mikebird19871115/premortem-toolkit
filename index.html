@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-Mortem Facilitation Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+--ink: #1e2a38;
+--paper: #ffffff;
+--cream: #f0f4f8;
+--rust: #c0401a;
+--rust-light: #e8532a;
+--amber: #d4820a;
+--steel: #3d4a5c;
+--steel-light: #5a6b80;
+--muted: #7a8898;
+--rule: #dde3ea;
+--white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+font-family: 'Instrument Sans', sans-serif;
+background: #eef1f5;
+color: var(--ink);
+min-height: 100vh;
+}
+
+/* ─── HEADER ─── */
+header {
+background: var(--ink);
+color: var(--paper);
+padding: 0;
+position: sticky;
+top: 0;
+z-index: 100;
+border-bottom: 3px solid var(--rust);
+box-shadow: 0 2px 12px rgba(30,42,56,0.12);
+}
+
+.header-inner {
+max-width: 1100px;
+margin: 0 auto;
+padding: 0 2rem;
+display: flex;
+align-items: stretch;
+gap: 0;
+}
+
+.header-brand {
+padding: 1rem 2rem 1rem 0;
+border-right: 1px solid #2d3d50;
+flex-shrink: 0;
+}
+
+.brand-label {
+font-family: 'DM Mono', monospace;
+font-size: 0.6rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(--rust);
+margin-bottom: 0.25rem;
+}
+
+.brand-title {
+font-family: 'DM Serif Display', serif;
+font-size: 1.25rem;
+color: var(--paper);
+line-height: 1.1;
+}
+
+nav {
+display: flex;
+align-items: center;
+gap: 0;
+padding-left: 2rem;
+overflow-x: auto;
+}
+
+nav button {
+background: none;
+border: none;
+color: var(--muted);
+font-family: 'DM Mono', monospace;
+font-size: 0.68rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 1.5rem 1.2rem;
+cursor: pointer;
+transition: all 0.2s;
+white-space: nowrap;
+position: relative;
+border-bottom: 3px solid transparent;
+margin-bottom: -3px;
+}
+
+nav button:hover { color: var(--paper); }
+nav button.active {
+color: var(--rust);
+border-bottom-color: var(--rust);
+}
+
+/* ─── LAYOUT ─── */
+main {
+max-width: 1100px;
+margin: 0 auto;
+padding: 3rem 2rem 5rem;
+}
+
+.section { display: none; animation: fadeIn 0.3s ease; }
+.section.active { display: block; }
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── TYPOGRAPHY ─── */
+.section-label {
+font-family: 'DM Mono', monospace;
+font-size: 0.65rem;
+letter-spacing: 0.25em;
+text-transform: uppercase;
+color: var(--rust);
+margin-bottom: 0.75rem;
+}
+
+h1 {
+font-family: 'DM Serif Display', serif;
+font-size: 3rem;
+line-height: 1.05;
+color: var(--ink);
+margin-bottom: 1.5rem;
+}
+
+h2 {
+font-family: 'DM Serif Display', serif;
+font-size: 2rem;
+color: var(--ink);
+margin-bottom: 1rem;
+}
+
+h3 {
+font-family: 'Instrument Sans', sans-serif;
+font-size: 0.85rem;
+font-weight: 600;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--steel);
+margin-bottom: 0.6rem;
+}
+
+p {
+font-size: 1rem;
+line-height: 1.7;
+color: #3a4a5a;
+margin-bottom: 1rem;
+}
+
+/* ─── HERO BAND ─── */
+.hero-band {
+background: var(--ink);
+color: var(--paper);
+padding: 3rem;
+margin-bottom: 3rem;
+position: relative;
+overflow: hidden;
+}
+
+.hero-band::before {
+content: 'PRE-MORTEM';
+position: absolute;
+right: -1rem;
+top: 50%;
+transform: translateY(-50%) rotate(90deg);
+font-family: 'DM Serif Display', serif;
+font-size: 5rem;
+color: rgba(255,255,255,0.05);
+letter-spacing: 0.1em;
+pointer-events: none;
+white-space: nowrap;
+}
+
+.hero-band .section-label { color: var(--rust); }
+.hero-band h1 { color: var(--paper); margin-bottom: 0.5rem; font-size: 2.5rem; }
+.hero-band p { color: #8aaac4; margin-bottom: 0; }
+
+/* ─── GRID ─── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+
+@media (max-width: 700px) {
+.grid-2, .grid-3 { grid-template-columns: 1fr; }
+h1 { font-size: 2rem; }
+}
+
+/* ─── CARDS ─── */
+.card {
+background: var(--white);
+border: 1px solid var(--rule);
+padding: 1.75rem;
+}
+
+.card-ink {
+background: var(--ink);
+color: var(--paper);
+border: none;
+padding: 1.75rem;
+}
+
+.card-ink h3 { color: var(--rust); }
+.card-ink p { color: #a8bccf; margin-bottom: 0; }
+
+.card-rust {
+background: var(--rust);
+color: var(--white);
+border: none;
+padding: 1.75rem;
+}
+
+.card-rust h3 { color: rgba(255,255,255,0.7); }
+.card-rust p { color: rgba(255,255,255,0.9); margin-bottom: 0; }
+
+.card-cream {
+background: var(--cream);
+border: 1px solid var(--rule);
+padding: 1.75rem;
+}
+
+/* ─── NUMBER BADGE ─── */
+.step-num {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 2rem;
+height: 2rem;
+background: var(--rust);
+color: white;
+font-family: 'DM Mono', monospace;
+font-size: 0.75rem;
+font-weight: 500;
+margin-bottom: 1rem;
+flex-shrink: 0;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+border: none;
+border-top: 1px solid var(--rule);
+margin: 2.5rem 0;
+}
+
+.divider-heavy {
+border-top: 3px solid var(--ink);
+margin: 2.5rem 0;
+}
+
+/* ─── STEP BLOCK ─── */
+.step-block {
+display: flex;
+gap: 1.5rem;
+padding: 2rem;
+border-left: 3px solid var(--rule);
+margin-bottom: 1.5rem;
+background: var(--white);
+border: 1px solid var(--rule);
+border-left: 3px solid var(--rule);
+transition: border-color 0.2s;
+box-shadow: 0 1px 4px rgba(30,42,56,0.04);
+}
+
+.step-block:hover { border-left-color: var(--rust); }
+
+.step-content { flex: 1; }
+.step-content h3 { margin-bottom: 0.4rem; font-size: 1rem; text-transform: none; letter-spacing: 0; color: var(--ink); font-weight: 600; }
+.step-content .timing {
+font-family: 'DM Mono', monospace;
+font-size: 0.65rem;
+color: var(--rust);
+letter-spacing: 0.1em;
+text-transform: uppercase;
+margin-bottom: 0.6rem;
+}
+.step-content p { margin-bottom: 0.75rem; font-size: 0.95rem; }
+
+/* ─── FACILITATOR TIPS ─── */
+.tip {
+background: #eef4fb;
+border-left: 3px solid var(--amber);
+padding: 0.75rem 1rem;
+font-size: 0.9rem;
+line-height: 1.5;
+margin-top: 0.75rem;
+color: #2a3a4a;
+}
+
+.tip::before {
+content: 'FACILITATOR TIP ';
+font-family: 'DM Mono', monospace;
+font-size: 0.6rem;
+letter-spacing: 0.15em;
+color: var(--amber);
+display: block;
+margin-bottom: 0.3rem;
+}
+
+/* ─── PROMPTS LIST ─── */
+.prompt-list {
+list-style: none;
+margin: 0.75rem 0;
+}
+
+.prompt-list li {
+padding: 0.6rem 0.75rem;
+border-bottom: 1px solid var(--rule);
+font-size: 0.92rem;
+line-height: 1.5;
+color: #3a4a5a;
+display: flex;
+gap: 0.75rem;
+align-items: flex-start;
+}
+
+.prompt-list li::before {
+content: '→';
+color: var(--rust);
+font-family: 'DM Mono', monospace;
+flex-shrink: 0;
+margin-top: 0.05rem;
+}
+
+.prompt-list li:last-child { border-bottom: none; }
+
+/* ─── TEMPLATE SECTION ─── */
+.template-block {
+border: 2px solid var(--ink);
+margin-bottom: 1.5rem;
+}
+
+.template-header {
+background: var(--ink);
+color: var(--paper);
+padding: 0.75rem 1.25rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.template-header span {
+font-family: 'DM Mono', monospace;
+font-size: 0.7rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+}
+
+.template-header .timing-badge {
+background: var(--rust);
+color: white;
+padding: 0.2rem 0.6rem;
+font-size: 0.6rem;
+}
+
+.template-body {
+padding: 1.25rem;
+background: var(--white);
+}
+
+.template-field {
+margin-bottom: 1rem;
+}
+
+.template-field label {
+display: block;
+font-family: 'DM Mono', monospace;
+font-size: 0.62rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(--muted);
+margin-bottom: 0.35rem;
+}
+
+.template-field .field-line {
+border-bottom: 1px solid var(--rule);
+height: 2rem;
+width: 100%;
+}
+
+.template-field .field-box {
+border: 1px solid var(--rule);
+height: 5rem;
+width: 100%;
+}
+
+.field-columns {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1rem;
+}
+
+/* ─── RISK TABLE ─── */
+.risk-table {
+width: 100%;
+border-collapse: collapse;
+margin: 1rem 0;
+}
+
+.risk-table th {
+background: var(--ink);
+color: var(--paper);
+font-family: 'DM Mono', monospace;
+font-size: 0.65rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+padding: 0.6rem 0.75rem;
+text-align: left;
+}
+
+.risk-table td {
+border-bottom: 1px solid var(--rule);
+padding: 0.75rem;
+font-size: 0.88rem;
+vertical-align: top;
+}
+
+.risk-table tr:last-child td { border-bottom: none; }
+
+.risk-tag {
+display: inline-block;
+font-family: 'DM Mono', monospace;
+font-size: 0.6rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 0.2rem 0.5rem;
+}
+
+.tag-high { background: #fce8e3; color: var(--rust); }
+.tag-med { background: #fef3e0; color: var(--amber); }
+.tag-low { background: #e8f0f7; color: var(--steel); }
+
+/* ─── REFERENCE CARD ─── */
+.ref-card {
+background: var(--ink);
+color: var(--paper);
+padding: 2.5rem;
+margin-bottom: 1.5rem;
+}
+
+.ref-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+margin-top: 1.5rem;
+}
+
+@media (max-width: 600px) { .ref-grid { grid-template-columns: 1fr; } }
+
+.ref-block { }
+.ref-block h3 {
+font-family: 'DM Mono', monospace;
+font-size: 0.62rem;
+letter-spacing: 0.2em;
+color: var(--rust);
+margin-bottom: 0.75rem;
+}
+
+.ref-item {
+display: flex;
+gap: 0.75rem;
+margin-bottom: 0.6rem;
+font-size: 0.88rem;
+color: #a8bccf;
+line-height: 1.4;
+}
+
+.ref-item .ref-bullet {
+color: var(--rust);
+font-family: 'DM Mono', monospace;
+flex-shrink: 0;
+}
+
+/* ─── PRINT BUTTON ─── */
+.btn {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+font-family: 'DM Mono', monospace;
+font-size: 0.7rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 0.75rem 1.5rem;
+cursor: pointer;
+border: none;
+transition: all 0.2s;
+}
+
+.btn-primary { background: var(--rust); color: white; }
+.btn-primary:hover { background: var(--rust-light); }
+.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+.btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+.btn-row { display: flex; gap: 0.75rem; margin: 1.5rem 0; flex-wrap: wrap; }
+
+/* ─── CALLOUT ─── */
+.callout {
+border-left: 4px solid var(--rust);
+padding: 1rem 1.25rem;
+background: #fdf5f3;
+margin: 1.5rem 0;
+}
+
+.callout p { margin-bottom: 0; font-size: 0.95rem; color: #3a4a5a; }
+.callout strong { color: var(--rust); }
+
+/* ─── ACCORDION ─── */
+.faq-item {
+border-bottom: 1px solid var(--rule);
+}
+
+.faq-q {
+width: 100%;
+text-align: left;
+background: none;
+border: none;
+padding: 1rem 0;
+font-family: 'Instrument Sans', sans-serif;
+font-size: 0.95rem;
+font-weight: 600;
+color: var(--ink);
+cursor: pointer;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 1rem;
+}
+
+.faq-q:hover { color: var(--rust); }
+
+.faq-icon {
+font-family: 'DM Mono', monospace;
+font-size: 1rem;
+color: var(--rust);
+flex-shrink: 0;
+transition: transform 0.2s;
+}
+
+.faq-a {
+display: none;
+padding: 0 0 1rem 0;
+font-size: 0.93rem;
+line-height: 1.65;
+color: #3a4a5a;
+}
+
+.faq-item.open .faq-a { display: block; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+
+/* ─── PHASE TIMELINE ─── */
+.phase-bar {
+display: flex;
+margin: 1.5rem 0 2rem;
+overflow: hidden;
+border: 1.5px solid var(--ink);
+}
+
+.phase-seg {
+flex: 1;
+padding: 0.75rem 0.5rem;
+text-align: center;
+font-family: 'DM Mono', monospace;
+font-size: 0.58rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+border-right: 1px solid var(--ink);
+line-height: 1.4;
+}
+
+.phase-seg:last-child { border-right: none; }
+.phase-seg.ph-setup { background: var(--cream); }
+.phase-seg.ph-imagine { background: var(--ink); color: var(--paper); }
+.phase-seg.ph-surface { background: #e8533a; color: white; }
+.phase-seg.ph-prioritise { background: var(--steel); color: white; }
+.phase-seg.ph-mitigate { background: var(--amber); }
+.phase-seg.ph-commit { background: var(--cream); }
+
+.phase-seg .ph-time { display: block; font-size: 0.7rem; font-weight: 500; margin-top: 0.2rem; }
+
+/* ─── PRINT STYLES ─── */
+@media print {
+header { position: static; }
+nav { display: none; }
+.section { display: block !important; }
+.btn-row { display: none; }
+.hero-band { break-after: page; }
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="header-inner">
+<div class="header-brand">
+<div class="brand-label">Operational Excellence</div>
+<div class="brand-title">Pre-Mortem<br>Toolkit</div>
+</div>
+<nav>
+<button class="active" onclick="show('concept', this)">01 Concept</button>
+<button onclick="show('guide', this)">02 Facilitator Guide</button>
+<button onclick="show('template', this)">03 Session Template</button>
+<button onclick="show('reference', this)">04 Quick Reference</button>
+<button onclick="show('faq', this)">05 FAQs</button>
+</nav>
+</div>
+</header>
+
+<main>
+
+<!-- ═══════════════════════════════════ 01 CONCEPT ══════════════════════════════════ -->
+<section id="concept" class="section active">
+<div class="hero-band">
+<div class="section-label">Section 01 — Foundation</div>
+<h1>What is a<br><em>Pre-Mortem?</em></h1>
+<p>The discipline of imagining failure before it happens — and building better plans because of it.</p>
+</div>
+
+<div class="grid-2">
+<div>
+<div class="section-label">The Core Idea</div>
+<p>A pre-mortem is a structured group exercise run <strong>before</strong> a project begins (or at a critical decision point). Participants are asked to imagine that the project has already failed — then work backwards to identify what caused that failure.</p>
+<p>The technique was developed by psychologist Gary Klein and popularised by Nobel laureate Daniel Kahneman. It works because it gives people <strong>permission to voice doubts</strong> they might otherwise suppress.</p>
+<p>In a standard planning meeting, people stay positive and go along with the group. In a pre-mortem, pessimism is the task. That shift in framing is what unlocks honest, useful information.</p>
+</div>
+<div>
+<div class="card-ink" style="margin-bottom:1.5rem">
+<h3>The Key Insight</h3>
+<p>"If we assume failure, we're not being negative — we're being thorough."</p>
+</div>
+<div class="card-cream">
+<h3>What it is NOT</h3>
+<ul class="prompt-list">
+<li>A blame session or performance review</li>
+<li>A reason to not proceed with a project</li>
+<li>A risk register (though it informs one)</li>
+<li>A meeting where the loudest voice wins</li>
+</ul>
+</div>
+</div>
+</div>
+
+<hr class="divider">
+
+<div class="section-label">Why it Works — The Science</div>
+<div class="grid-3">
+<div class="card">
+<h3>Prospective Hindsight</h3>
+<p>Imagining an event has <em>already happened</em> increases your ability to identify reasons for it by up to 30%. The brain reasons better in the past tense than the future tense.</p>
+</div>
+<div class="card">
+<h3>Override Optimism Bias</h3>
+<p>Teams naturally underestimate how long things take and overestimate how smoothly they'll go. The pre-mortem format structurally counters this bias by making the question "what went wrong?"</p>
+</div>
+<div class="card">
+<h3>Unlock Silent Knowledge</h3>
+<p>Junior team members, cross-functional partners, and quieter personalities often see risks that leaders miss. Pre-mortems give those voices a structured, legitimised way in.</p>
+</div>
+</div>
+
+<hr class="divider">
+
+<div class="section-label">When to Run One</div>
+<div class="grid-2" style="margin-bottom:0">
+<div class="card">
+<h3>✓ Good Moments</h3>
+<ul class="prompt-list">
+<li>At project kick-off, before execution begins</li>
+<li>Before a major milestone decision (go/no-go)</li>
+<li>When taking on a new product category or market</li>
+<li>Before a key external commitment (launch date, partner reveal)</li>
+<li>When the team has a nagging feeling something might go wrong</li>
+</ul>
+</div>
+<div class="card">
+<h3>✗ Less Useful Moments</h3>
+<ul class="prompt-list">
+<li>Mid-execution when the plan is largely locked</li>
+<li>After a crisis has already started (use post-mortem instead)</li>
+<li>When the decision has already been made and won't change</li>
+<li>With a group too small to generate diverse perspectives (under 4 people)</li>
+</ul>
+</div>
+</div>
+
+<hr class="divider">
+
+<div class="callout">
+<p><strong>For Operational Excellence facilitators:</strong> The pre-mortem is one of the highest-leverage tools you can bring to a product team. It surfaces Uncertainty Debt early — the unacknowledged assumptions and dependencies that cause critical path failure downstream. Run it at kick-off and you compress the decision-making cycle for everything that follows.</p>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════ 02 GUIDE ═════════════════════════════════════ -->
+<section id="guide" class="section">
+<div class="hero-band">
+<div class="section-label">Section 02 — Process</div>
+<h1>The Facilitator<br><em>Guide</em></h1>
+<p>A complete step-by-step playbook for running a pre-mortem with any product team.</p>
+</div>
+
+<div class="section-label">Session Overview</div>
+
+<div class="phase-bar">
+<div class="phase-seg ph-setup">Setup<span class="ph-time">5 min</span></div>
+<div class="phase-seg ph-imagine">Imagine Failure<span class="ph-time">5 min</span></div>
+<div class="phase-seg ph-surface">Surface Risks<span class="ph-time">15 min</span></div>
+<div class="phase-seg ph-prioritise">Prioritise<span class="ph-time">10 min</span></div>
+<div class="phase-seg ph-mitigate">Mitigate<span class="ph-time">10 min</span></div>
+<div class="phase-seg ph-commit">Commit<span class="ph-time">5 min</span></div>
+</div>
+
+<p style="margin-bottom:2rem"><strong>Total: 45–60 minutes.</strong> Can be compressed to 30 min for experienced groups or expanded to 90 min for complex projects with large teams.</p>
+
+<div class="section-label">Before the Session</div>
+
+<div class="step-block">
+<div class="step-num">P</div>
+<div class="step-content">
+<h3>Preparation (24–48 hrs before)</h3>
+<div class="timing">Pre-session</div>
+<p>Set context. Send participants a 3-sentence brief: what the project is, what the session will do, and what you need from them mentally. Do NOT send a detailed agenda — you want unfiltered instincts, not prepared answers.</p>
+<p><strong>Invite the right people.</strong> Aim for 6–12 participants. Include at least one person per function that touches the critical path. Cross-functional diversity is the point — homogenous groups produce homogenous blind spots.</p>
+<div class="tip">Avoid inviting only enthusiastic advocates of the project. You need people with legitimate concerns and real stake in the outcome. If senior leadership is present, brief them beforehand: their job is to listen, not lead.</div>
+</div>
+</div>
+
+<hr class="divider">
+<div class="section-label">During the Session</div>
+
+<div class="step-block">
+<div class="step-num">1</div>
+<div class="step-content">
+<h3>Frame the Session</h3>
+<div class="timing">5 minutes</div>
+<p>Open by stating clearly: this is not a brainstorm. You are not here to solve problems — you are here to find them. Briefly explain the pre-mortem method and why it works. Then state the premise:</p>
+<div class="card-cream" style="margin: 0.75rem 0; padding: 1rem 1.25rem; border-left: 3px solid var(--rust);">
+<em>"It is now [12 months from today]. This project has failed — completely, visibly, and painfully. The launch missed, the business didn't land, or the team fell apart. Your job in the next few minutes is to write down every reason you can think of for why that happened."</em>
+</div>
+<div class="tip">Adapt the timeframe to project length — use 6 months for a short initiative or 18 months for a multi-season programme. Specificity makes the imagined failure feel real, which is what drives useful output.</div>
+</div>
+</div>
+
+<div class="step-block">
+<div class="step-num">2</div>
+<div class="step-content">
+<h3>Silent Individual Writing</h3>
+<div class="timing">5 minutes</div>
+<p>Everyone writes independently and silently. No talking, no sharing yet. Each person writes every failure reason they can think of — no filter, no editing, no self-censoring.</p>
+<p>Give each participant their own copy of the session template (Section 03). Ask them to aim for a minimum of 5 failure reasons. More is better at this stage.</p>
+<div class="tip">Silence is critical here. The moment people start talking, they start anchoring on each other's ideas. The independent writing phase is what generates the diversity of perspective that makes pre-mortems valuable. Protect it.</div>
+</div>
+</div>
+
+<div class="step-block">
+<div class="step-num">3</div>
+<div class="step-content">
+<h3>Round-Robin Sharing</h3>
+<div class="timing">15 minutes</div>
+<p>Go around the room one person at a time. Each person shares <strong>one</strong> failure reason per turn. Capture all responses on a shared surface (whiteboard, Miro, or shared doc). Continue rotating until all unique reasons are on the board.</p>
+<p>Your job as facilitator is to capture, clarify, and prevent discussion. If someone tries to explain or debate a risk, say: "Great — we'll come back to that. Next person."</p>
+<ul class="prompt-list" style="margin-top:0.75rem">
+<li>Cluster similar items as you go — create natural categories (people, process, external, technical, commercial)</li>
+<li>Ask brief clarifying questions only when a reason is genuinely unclear</li>
+<li>If someone says "I agree with what X said" — push them: "what's your version of that risk?"</li>
+</ul>
+<div class="tip">Watch for cascade silence — when everyone has shared "their main risk" and energy drops. Push one more round. The second-tier risks are often the most honest and the most overlooked.</div>
+</div>
+</div>
+
+<div class="step-block">
+<div class="step-num">4</div>
+<div class="step-content">
+<h3>Prioritise the Risks</h3>
+<div class="timing">10 minutes</div>
+<p>With all risks visible, ask the group to vote on the ones they consider highest risk. A simple method: give everyone 5 votes to allocate however they choose across the risk list (dot voting works well in person; a simple show of hands works for smaller groups).</p>
+<p>After voting, you should have a clear top 5–7 risks that warrant attention. These are your <strong>Priority Risk Register</strong>.</p>
+<div class="tip">Don't force consensus on the ranking. If one risk gets disproportionate votes, that's a signal. If opinions are very spread, that itself is useful data about uncertainty. Name it.</div>
+</div>
+</div>
+
+<div class="step-block">
+<div class="step-num">5</div>
+<div class="step-content">
+<h3>Mitigation Discussion</h3>
+<div class="timing">10 minutes</div>
+<p>Take the top 3–5 risks only. For each, ask: <em>"What would have to be true for this risk NOT to materialise?"</em> Then: <em>"Who owns the action to get us there?"</em></p>
+<p>You are not trying to solve every risk in the room. You are identifying the actions that change the project plan or require a decision before you proceed.</p>
+<ul class="prompt-list" style="margin-top:0.75rem">
+<li>Each mitigation needs an owner and a deadline — not just a note</li>
+<li>Some risks may be unmitigable — name them as accepted risks</li>
+<li>Some risks may reveal that a plan assumption needs to change entirely</li>
+</ul>
+<div class="tip">The most powerful outcome is not a long to-do list. It's one or two decisions that fundamentally improve the plan. Be willing to say "this risk tells us we need to revisit our go-date."</div>
+</div>
+</div>
+
+<div class="step-block">
+<div class="step-num">6</div>
+<div class="step-content">
+<h3>Close and Commit</h3>
+<div class="timing">5 minutes</div>
+<p>Summarise what happened in the session: the number of risks surfaced, the top priorities identified, and the actions committed. Thank the group — especially anyone who voiced an uncomfortable truth.</p>
+<p>State clearly what happens next: who captures the output, when it will be shared, and how it feeds into the project plan or critical path.</p>
+<div class="tip">Send a summary within 24 hours. Pre-mortem outputs that don't make it into the working plan within a week are forgotten. Your job doesn't end when the meeting does.</div>
+</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════ 03 TEMPLATE ══════════════════════════════════ -->
+<section id="template" class="section">
+<div class="hero-band">
+<div class="section-label">Section 03 — Tools</div>
+<h1>Session<br><em>Template</em></h1>
+<p>Print one copy per participant. Use the facilitator version to capture consolidated outputs.</p>
+</div>
+
+<div class="btn-row">
+<button class="btn btn-primary" onclick="window.print()">↓ Print Template</button>
+<button class="btn btn-outline" onclick="show('guide', document.querySelector('nav button:nth-child(2)'))">← Back to Guide</button>
+</div>
+
+<!-- PARTICIPANT SHEET -->
+<div class="template-block">
+<div class="template-header">
+<span>Participant Sheet — Individual</span>
+<span class="timing-badge">Silent Writing — 5 min</span>
+</div>
+<div class="template-body">
+<div class="field-columns">
+<div class="template-field">
+<label>Project / Initiative Name</label>
+<div class="field-line"></div>
+</div>
+<div class="template-field">
+<label>Date &amp; Facilitator</label>
+<div class="field-line"></div>
+</div>
+</div>
+
+<div class="template-field" style="margin-top:1rem">
+<label>Premise</label>
+<div style="background:#f0f4f8; border: 1px solid var(--rule); padding: 0.75rem; font-size:0.9rem; line-height:1.5; font-style:italic; color:#3a4a5a;">
+It is now [DATE]. This project has failed — completely, visibly, and painfully. Write down every reason you can think of for why that happened. Aim for at least 5. Don't filter. Don't edit. Don't hold back.
+</div>
+</div>
+
+<div class="template-field" style="margin-top:1.25rem">
+<label>Failure Reasons — write as many as you can</label>
+<table class="risk-table" style="margin-top:0.5rem">
+<thead>
+<tr>
+<th style="width:2rem">#</th>
+<th>Why did this project fail?</th>
+<th style="width:8rem">Category</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1</td><td><div style="height:2rem"></div></td><td></td></tr>
+<tr><td>2</td><td><div style="height:2rem"></div></td><td></td></tr>
+<tr><td>3</td><td><div style="height:2rem"></div></td><td></td></tr>
+<tr><td>4</td><td><div style="height:2rem"></div></td><td></td></tr>
+<tr><td>5</td><td><div style="height:2rem"></div></td><td></td></tr>
+<tr><td>6</td><td><div style="height:2rem"></div></td><td></td></tr>
+<tr><td>7</td><td><div style="height:2rem"></div></td><td></td></tr>
+<tr><td>+</td><td style="font-style:italic; color:var(--muted); font-size:0.82rem">Continue on the back if needed</td><td></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="template-field" style="margin-top:1.25rem">
+<label>Your single biggest concern going into this project</label>
+<div class="field-box"></div>
+</div>
+</div>
+</div>
+
+<!-- FACILITATOR CAPTURE SHEET -->
+<div class="template-block">
+<div class="template-header">
+<span>Facilitator Capture Sheet — Consolidated</span>
+<span class="timing-badge">Facilitator Use Only</span>
+</div>
+<div class="template-body">
+<div class="field-columns">
+<div class="template-field">
+<label>Project</label>
+<div class="field-line"></div>
+</div>
+<div class="template-field">
+<label>Session Date / Participants</label>
+<div class="field-line"></div>
+</div>
+</div>
+
+<div class="template-field" style="margin-top:1rem">
+<label>All Risks Surfaced (Round-Robin Capture)</label>
+<table class="risk-table" style="margin-top:0.5rem">
+<thead>
+<tr>
+<th>Risk / Failure Reason</th>
+<th style="width:7rem">Category</th>
+<th style="width:5rem">Votes</th>
+<th style="width:6rem">Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+<tr><td><div style="height:1.75rem"></div></td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="template-field" style="margin-top:1.5rem">
+<label>Priority Risks &amp; Mitigations (Top 3–5 only)</label>
+<table class="risk-table" style="margin-top:0.5rem">
+<thead>
+<tr>
+<th>#</th>
+<th>Risk</th>
+<th>Mitigation / Action</th>
+<th style="width:8rem">Owner</th>
+<th style="width:6rem">By When</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1</td><td><div style="height:2.5rem"></div></td><td><div style="height:2.5rem"></div></td><td></td><td></td></tr>
+<tr><td>2</td><td><div style="height:2.5rem"></div></td><td><div style="height:2.5rem"></div></td><td></td><td></td></tr>
+<tr><td>3</td><td><div style="height:2.5rem"></div></td><td><div style="height:2.5rem"></div></td><td></td><td></td></tr>
+<tr><td>4</td><td><div style="height:2.5rem"></div></td><td><div style="height:2.5rem"></div></td><td></td><td></td></tr>
+<tr><td>5</td><td><div style="height:2.5rem"></div></td><td><div style="height:2.5rem"></div></td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="template-field" style="margin-top:1.5rem">
+<label>Accepted Risks (known but unmitigable)</label>
+<div class="field-box"></div>
+</div>
+
+<div class="template-field">
+<label>Plan Changes Required Based on This Session</label>
+<div class="field-box"></div>
+</div>
+
+<div class="template-field">
+<label>Output Owner &amp; Distribution Date</label>
+<div class="field-line"></div>
+</div>
+</div>
+</div>
+
+<div class="card-cream" style="margin-top: 1rem; padding: 1.25rem">
+<h3>Risk Categories — Reference</h3>
+<div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem">
+<span class="risk-tag tag-high">Execution</span>
+<span class="risk-tag tag-high">Resourcing</span>
+<span class="risk-tag tag-med">Dependencies</span>
+<span class="risk-tag tag-med">External / Market</span>
+<span class="risk-tag tag-med">Stakeholder</span>
+<span class="risk-tag tag-low">Technical</span>
+<span class="risk-tag tag-low">Commercial</span>
+<span class="risk-tag tag-low">Timing</span>
+<span class="risk-tag" style="background:#e8edf2; color:var(--muted)">Assumption</span>
+</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════ 04 REFERENCE ════════════════════════════════ -->
+<section id="reference" class="section">
+<div class="hero-band">
+<div class="section-label">Section 04 — Reference</div>
+<h1>Quick Reference<br><em>Card</em></h1>
+<p>Print and keep. One page you can bring into any session.</p>
+</div>
+
+<div class="ref-card">
+<div class="section-label" style="color:var(--rust)">Pre-Mortem — At a Glance</div>
+<div style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--paper); margin-bottom:1.5rem">
+Imagine the failure. Surface the risks. Strengthen the plan.
+</div>
+
+<div class="ref-grid">
+<div class="ref-block">
+<h3>The 6 Steps</h3>
+<div class="ref-item"><span class="ref-bullet">01</span><span>Frame the session — set the failure premise</span></div>
+<div class="ref-item"><span class="ref-bullet">02</span><span>Silent individual writing (5 min, no talking)</span></div>
+<div class="ref-item"><span class="ref-bullet">03</span><span>Round-robin sharing — one risk per turn</span></div>
+<div class="ref-item"><span class="ref-bullet">04</span><span>Dot-vote to prioritise top risks</span></div>
+<div class="ref-item"><span class="ref-bullet">05</span><span>Discuss mitigations for top 3–5 risks</span></div>
+<div class="ref-item"><span class="ref-bullet">06</span><span>Assign owners, close, send summary in 24hrs</span></div>
+</div>
+
+<div class="ref-block">
+<h3>The Facilitator's Job</h3>
+<div class="ref-item"><span class="ref-bullet">→</span><span>Protect the silence in step 2</span></div>
+<div class="ref-item"><span class="ref-bullet">→</span><span>Prevent debate during step 3 — capture, don't solve</span></div>
+<div class="ref-item"><span class="ref-bullet">→</span><span>Push for a second round of risks — second-tier is often better</span></div>
+<div class="ref-item"><span class="ref-bullet">→</span><span>Name risks that surface as plan assumptions</span></div>
+<div class="ref-item"><span class="ref-bullet">→</span><span>Focus mitigation on the top 3–5 only</span></div>
+<div class="ref-item"><span class="ref-bullet">→</span><span>Every mitigation needs an owner + deadline</span></div>
+</div>
+
+<div class="ref-block">
+<h3>Key Phrases to Use</h3>
+<div class="ref-item"><span class="ref-bullet">"</span><span>It is now [date]. The project has failed. Why?</span></div>
+<div class="ref-item"><span class="ref-bullet">"</span><span>What's your version of that risk?</span></div>
+<div class="ref-item"><span class="ref-bullet">"</span><span>Great — we'll come back to that. Next person.</span></div>
+<div class="ref-item"><span class="ref-bullet">"</span><span>What would have to be true for this NOT to happen?</span></div>
+<div class="ref-item"><span class="ref-bullet">"</span><span>Who owns this? By when?</span></div>
+<div class="ref-item"><span class="ref-bullet">"</span><span>Is this a risk we're mitigating or accepting?</span></div>
+</div>
+
+<div class="ref-block">
+<h3>Warning Signs Mid-Session</h3>
+<div class="ref-item"><span class="ref-bullet">!</span><span>Group converging too fast — push more rounds</span></div>
+<div class="ref-item"><span class="ref-bullet">!</span><span>Debate breaking out — redirect to capture</span></div>
+<div class="ref-item"><span class="ref-bullet">!</span><span>Only senior voices contributing — explicitly invite quieter members</span></div>
+<div class="ref-item"><span class="ref-bullet">!</span><span>Risks vague / high-level — ask "what specifically?"</span></div>
+<div class="ref-item"><span class="ref-bullet">!</span><span>No one named the obvious risk — sometimes you have to model it</span></div>
+</div>
+</div>
+</div>
+
+<div class="grid-3" style="margin-top:1.5rem">
+<div class="card-rust">
+<h3>Timing Guide</h3>
+<p>Standard session: 45–60 min<br>
+Compressed: 30 min<br>
+Complex / large team: 90 min<br>
+Ideal group size: 6–12 people</p>
+</div>
+<div class="card-ink">
+<h3>What Good Output Looks Like</h3>
+<p>15–25 distinct risks surfaced. Top 5 prioritised and voted. 3–5 clear mitigations with owners. 1–2 plan changes triggered.</p>
+</div>
+<div class="card">
+<h3>What to Do After</h3>
+<ul class="prompt-list" style="margin:0">
+<li>Send summary within 24 hours</li>
+<li>Integrate mitigations into CP</li>
+<li>Flag accepted risks to leadership</li>
+<li>Schedule a check-in at midpoint</li>
+</ul>
+</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════ 05 FAQs ══════════════════════════════════════ -->
+<section id="faq" class="section">
+<div class="hero-band">
+<div class="section-label">Section 05 — Support</div>
+<h1>Frequently Asked<br><em>Questions</em></h1>
+<p>What your team will ask before and after their first session.</p>
+</div>
+
+<div class="section-label">Before the Session</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+What if I've never facilitated anything before?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+The pre-mortem is one of the most beginner-friendly facilitation tools precisely because the structure does most of the work. Your job isn't to be a trained coach — it's to protect the process. Read the guide, practice the key phrases, and trust the format. If you follow the 6 steps, the room will do the rest. Your first session doesn't need to be perfect; it needs to happen.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+How do I get buy-in from the product team to do this?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+Don't oversell it. Say: "I want to run a 45-minute session with you before kick-off to stress-test the plan. It's structured, fast, and has a good track record of surfacing things we'd otherwise find out too late." Most teams respond well when they understand it protects the project, not interrogates it. If a team lead is resistant, ask them: "Is there anything about this plan you haven't had a chance to voice yet?" That question usually opens the door.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+Who should be in the room?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+Include at least one person from each function that sits on the critical path — design, development, sourcing, commercial, marketing, operations depending on project type. Include someone who is new to the project, someone who has worked on a similar project before, and if possible, someone who disagreed with a key assumption in the plan. Avoid having only the project team's closest advocates. Senior leaders should be present only if they can commit to listening mode.
+</div>
+</div>
+
+<hr class="divider">
+<div class="section-label">During the Session</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+What if the room goes quiet and no one has anything to say?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+First — protect the silent writing phase. If people write independently first, they'll always have something to share. Second, if the round-robin stalls, use category prompts: "What about external dependencies? What about the team's capacity? What about the assumptions baked into the timeline?" These tend to unlock a second wave. If genuine silence persists, it may mean the group hasn't internalised the failure premise. Restate it more vividly: "Imagine the Monday morning where you have to explain to leadership what went wrong. What are you saying?"
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+What if a senior person dominates the room?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+This is the most common failure mode for pre-mortems. Mitigate it in three ways: (1) Brief senior attendees beforehand that their role is to listen and learn, not lead. (2) Enforce the round-robin — go around the room in order, so no one person can dominate the floor. (3) After the senior person speaks, explicitly invite quieter voices: "I'd love to hear from someone who hasn't spoken yet." If the senior person is the project sponsor, consider whether they should attend at all — their presence can suppress honest input.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+What if people start debating or trying to solve risks during the sharing phase?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+This is natural — smart people instinctively want to fix problems. Your job is to redirect it: "Really useful — let's park that in the mitigation phase. Who else has a risk to add?" Keep a "parking lot" column on your capture sheet for solution ideas that come up too early. People find it easier to hold their idea when they know it won't be lost. Debate before all risks are surfaced will narrow the list prematurely — protect the generation phase first.
+</div>
+</div>
+
+<hr class="divider">
+<div class="section-label">After the Session</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+What format should I use to share the output?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+Keep it simple: a one-page summary with (1) the top 5 risks ranked by vote, (2) the mitigation action and owner for each, and (3) any plan changes triggered by the session. Send it as a shared doc or PDF within 24 hours. Don't bury it in a long write-up. The goal is for every participant to be able to read it in under 90 seconds and know what they own.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+How do we make sure the mitigations actually happen?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+Integrate them into the project's critical path or project management tool — not as a separate risk log that nobody reads. Each mitigation should have a named owner, a deadline, and a checkpoint where it's reviewed. Build a 15-minute pre-mortem review into the next planning milestone of the project. Ask: "Of the risks we surfaced, which are now resolved, which are live, and which need escalation?" Ownership is the variable that separates pre-mortems that create change from pre-mortems that feel good in the moment.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-q" onclick="toggleFaq(this)">
+Should we run a pre-mortem more than once on the same project?
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-a">
+Yes — for longer projects (6+ months), consider a mid-point check. By then, the original risk landscape has shifted: some risks have materialised, some have resolved, and new ones have emerged that weren't visible at kick-off. A 30-minute refresher using the same format — "imagine it's failed, why?" — can surface the risks that belong to the execution phase, not the planning phase. Call it a mid-mortem if that helps distinguish it from the original session.
+</div>
+</div>
+
+<hr class="divider">
+
+<div class="callout">
+<p><strong>Have a question not covered here?</strong> The best way to build capability is to run sessions and debrief them. After your first pre-mortem, ask yourself: what worked, what felt awkward, and what would you do differently? That reflection is how you build a facilitation practice.</p>
+</div>
+</section>
+
+</main>
+
+<script>
+function show(id, btn) {
+document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+if (btn) btn.classList.add('active');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleFaq(btn) {
+const item = btn.closest('.faq-item');
+item.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
+
